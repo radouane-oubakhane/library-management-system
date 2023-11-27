@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/bookreserve', [\App\Http\Controllers\BookCopy::class, 'index'])->name('books reserve.index');
+
