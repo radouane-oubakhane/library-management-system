@@ -17,4 +17,5 @@ class Inscription extends Model
         'address',
         'date_of_birth',
     ];
+
 }
