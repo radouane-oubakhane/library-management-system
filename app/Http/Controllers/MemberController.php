@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -38,7 +39,21 @@ class MemberController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $member=DB::table('members')
+            ->where("id",$id)
+            ->get();
+        foreach ($member as $m){
+            $m->bookCopy=DB::table('borrows')
+                ->join('book_copies','book_copies.id','=','borrows.book_copy_id')
+
+                ->join('books','books.id','=','book_copies.book_id')
+                ->where('borrows.member_id', $id)
+            ->select('book_copies.status','books.title','borrows.borrow_date')->get();
+        }
+
+//        $user->bookCopy=
+        return view('profile',compact('member'));
+
     }
 
     /**

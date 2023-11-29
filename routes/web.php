@@ -24,6 +24,7 @@ Route::get('/', function () {
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 // Members
 Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+Route::get('/member/{id}', [MemberController::class, 'show'])->name('members.index');
 // Inscriptions
 Route::get('/inscriptions', [InscriptionController::class, 'index'])->name('inscriptions.index');
 
