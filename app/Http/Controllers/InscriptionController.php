@@ -22,7 +22,7 @@ class InscriptionController extends Controller
      */
     public function create()
     {
-        //
+        return view('inscription');
     }
 
     /**
@@ -30,7 +30,11 @@ class InscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        Inscription::create($request->all());
+
+        return redirect()->route('inscriptions.index');
     }
 
     /**
