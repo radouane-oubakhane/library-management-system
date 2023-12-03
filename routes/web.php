@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopy;
 use App\Http\Controllers\InscriptionController;
@@ -40,4 +41,10 @@ Route::prefix('inscriptions')->group(function () {
     Route::get('/', [InscriptionController::class, 'index'])->name('inscriptions.index');
     Route::get('/create', [InscriptionController::class, 'create'])->name('inscriptions.create');
     Route::post('/', [InscriptionController::class, 'store'])->name('inscriptions.store');
+});
+
+Route::prefix('book-categories')->group(function () {
+    Route::get('/', [BookCategoryController::class, 'index'])->name('book-categories.index');
+    Route::get('/create', [BookCategoryController::class, 'create'])->name('book-categories.create');
+    Route::post('/', [BookCategoryController::class, 'store'])->name('book-categories.store');
 });

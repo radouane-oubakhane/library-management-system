@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 
 class BookCategoryController extends Controller
@@ -11,7 +12,9 @@ class BookCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('book-categories', [
+            'bookCategories' => BookCategory::all()
+        ]);
     }
 
     /**
@@ -19,7 +22,7 @@ class BookCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('book-category');
     }
 
     /**
@@ -27,7 +30,9 @@ class BookCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        BookCategory::create($request->all());
+
+        return redirect()->route('book-categories.index');
     }
 
     /**
