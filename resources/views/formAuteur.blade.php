@@ -1,11 +1,11 @@
 <!-- resources/views/authors/create.blade.php -->
 
-@extends('layouts.app')
 
-@section('content')
+
+
     <div class="container">
         <h2>Add Author</h2>
-        <form action="{{ route('authors.store') }}" method="POST">
+        <form action="/authors/store"  method="post">
             @csrf
             <div class="form-group">
                 <label for="first_name">First Name:</label>
@@ -34,4 +34,4 @@
             <button type="submit" class="btn btn-primary">Add Author</button>
         </form>
     </div>
-@endsection
+

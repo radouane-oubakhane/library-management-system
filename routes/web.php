@@ -46,7 +46,9 @@ Route::prefix('inscriptions')->group(function () {
 
 //Auteur
 Route::get('/authors/create', [\App\Http\Controllers\AuthorController::class, 'create'])->name('authors.create');
-Route::post('/authors', [\App\Http\Controllers\AuthorController::class, 'store'])->name('authors.store');
+Route::get('/authors', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
+
+Route::post('/authors/store', [\App\Http\Controllers\AuthorController::class, 'store'])->name('authors.store');
 
 Route::prefix('book-categories')->group(function () {
     Route::get('/', [BookCategoryController::class, 'index'])->name('book-categories.index');

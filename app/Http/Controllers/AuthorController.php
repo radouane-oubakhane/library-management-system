@@ -12,7 +12,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('listAuteur',['auteurs' => Author::all()]);
+
     }
 
     /**
@@ -20,7 +22,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('formAuteur');
     }
 
     /**
@@ -31,7 +33,7 @@ class AuthorController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|email|unique:authors,email',
+            'email' => 'required|string',
             'phone' => 'required|string',
             'address' => 'required|string',
             'date_of_birth' => 'required|date',
