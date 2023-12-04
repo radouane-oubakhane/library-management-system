@@ -6,6 +6,7 @@
     <h3>{{$m->email}} </h3>
     <h4>{{$m->phone}} </h4>
     <p>les livres emprunter</p>
+
     <ul>
         @foreach ($m->bookCopy as $book)
             <li>

@@ -41,3 +41,7 @@ Route::prefix('inscriptions')->group(function () {
     Route::get('/create', [InscriptionController::class, 'create'])->name('inscriptions.create');
     Route::post('/', [InscriptionController::class, 'store'])->name('inscriptions.store');
 });
+
+//Auteur
+Route::get('/authors/create', [\App\Http\Controllers\AuthorController::class, 'create'])->name('authors.create');
+Route::post('/authors', [\App\Http\Controllers\AuthorController::class, 'store'])->name('authors.store');
