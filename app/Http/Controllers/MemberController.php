@@ -61,7 +61,9 @@ class MemberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit-member', [
+            'member' => Member::findOrFail($id)
+        ]);
     }
 
     /**
@@ -69,7 +71,9 @@ class MemberController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $member = Member::findOrFail($id);
+        $member->update($request->all());
+        return redirect()->route('members.index');
     }
 
     /**

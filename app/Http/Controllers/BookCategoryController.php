@@ -12,7 +12,7 @@ class BookCategoryController extends Controller
      */
     public function index()
     {
-        return view('book-categories', [
+        return view('add-book-categories', [
             'bookCategories' => BookCategory::all()
         ]);
     }

@@ -1,5 +1,5 @@
 <div>
-    <h1>Members</h1>
+    <h1 class="border-black">Members</h1>
     <table>
         <thead>
             <tr>

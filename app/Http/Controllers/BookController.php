@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DTO\BookResponse;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -47,7 +48,11 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('add-book', [
+            'authors' => Author::all(),
+            'bookCategories' => BookCategory::all(),
+        ]);
+
     }
 
     /**
@@ -55,7 +60,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $book = Book::create($request->all());
+
+        return redirect()->route('books.index');
     }
 
     /**
@@ -63,7 +72,9 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('book', [
+            'book' => Book::find($id)
+        ]);
     }
 
     /**
