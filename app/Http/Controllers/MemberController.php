@@ -23,7 +23,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -82,5 +82,18 @@ class MemberController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function createMember($data) {
+        $member = new Member();
+        $member->first_name = $data->first_name;
+        $member->last_name = $data->last_name;
+        $member->email = $data->email;
+        $member->phone = $data->phone;
+        $member->address = $data->address;
+        $member->date_of_birth = $data->date_of_birth;
+        $member->membership_start_date = date('Y-m-d');
+        $member->membership_end_date = date('Y-m-d', strtotime('+1 year'));
+        $member->save();
     }
 }

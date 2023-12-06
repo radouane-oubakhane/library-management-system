@@ -1,6 +1,12 @@
+<html>
+<head>
+    <title>Members</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
 <div>
-    <h1 class="border-black">Members</h1>
-    <table>
+    <h1>Members</h1>
+    <table class="table table-dark">
         <thead>
             <tr>
                 <th>Last Name</th>
@@ -29,3 +35,5 @@
         </tbody>
     </table>
 </div>
+</body>
+</html>

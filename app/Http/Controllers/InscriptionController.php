@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class InscriptionController extends Controller
 
         Inscription::create($request->all());
 
-        return redirect()->route('inscriptions.index');
+        return view('welcome');
     }
 
     /**
@@ -66,6 +67,29 @@ class InscriptionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Inscription::destroy($id);
+
+        return redirect()->route('inscriptions.index');
+    }
+
+
+    public function accept(string $id)
+    {
+        $inscription = Inscription::find($id);
+
+        $RegisterController = new RegisterController();
+
+        $RegisterController->create($inscription->toArray());
+
+        $memberController = new MemberController();
+
+
+        $memberController->createMember($inscription);
+
+
+
+        Inscription::destroy($id);
+
+        return redirect()->route('members.index');
     }
 }

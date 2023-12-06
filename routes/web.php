@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopy;
@@ -25,8 +26,7 @@ Route::get('/', function () {
 // Books
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 // Members
-Route::get('/members', [MemberController::class, 'index'])->name('members.index');
-Route::get('/member/{id}', [MemberController::class, 'show'])->name('members.index');
+
 // Inscriptions
 //Route::get('/inscriptions', [InscriptionController::class, 'index'])->name('inscriptions.index');
 // BookReserve
@@ -41,14 +41,19 @@ Route::prefix('inscriptions')->group(function () {
     Route::get('/', [InscriptionController::class, 'index'])->name('inscriptions.index');
     Route::get('/create', [InscriptionController::class, 'create'])->name('inscriptions.create');
     Route::post('/', [InscriptionController::class, 'store'])->name('inscriptions.store');
+    Route::get('/{id}', [InscriptionController::class, 'show'])->name('inscriptions.show');
+    Route::get('/{id}/edit', [InscriptionController::class, 'edit'])->name('inscriptions.edit');
+    Route::post('/{id}/edit', [InscriptionController::class, 'update'])->name('inscriptions.update');
+    Route::post('/{id}/delete', [InscriptionController::class, 'destroy'])->name('inscriptions.destroy');
+    Route::post('/{id}/accept', [InscriptionController::class, 'accept'])->name('inscriptions.accept');
 });
 
 
 //Auteur
-Route::get('/authors/create', [\App\Http\Controllers\AuthorController::class, 'create'])->name('authors.create');
-Route::get('/authors', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
+Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 
-Route::post('/authors/store', [\App\Http\Controllers\AuthorController::class, 'store'])->name('authors.store');
+Route::post('/authors/store', [AuthorController::class, 'store'])->name('authors.store');
 
 Route::prefix('book-categories')->group(function () {
     Route::get('/', [BookCategoryController::class, 'index'])->name('book-categories.index');
