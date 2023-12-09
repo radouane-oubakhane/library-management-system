@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\BookCategory;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,8 @@ class BookCategoryController extends Controller
      */
     public function index()
     {
-        return view('add-book-categories', [
-            'bookCategories' => BookCategory::all()
+        return view('book-categories', [
+            'book-categories' => BookCategory::all()
         ]);
     }
 
@@ -22,7 +23,7 @@ class BookCategoryController extends Controller
      */
     public function create()
     {
-        return view('book-category');
+        return view('add-book-category');
     }
 
     /**
@@ -48,7 +49,9 @@ class BookCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit-category', [
+            'category' => BookCategory::findOrFail($id)
+        ]);
     }
 
     /**
@@ -56,7 +59,9 @@ class BookCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = BookCategory::findOrFail($id);
+        $category->update($request->all());
+        return redirect()->route('book-categories.index');
     }
 
     /**

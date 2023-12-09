@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function Laravel\Prompts\alert;
 
 class MemberController extends Controller
 {
@@ -72,6 +73,7 @@ class MemberController extends Controller
     public function update(Request $request, string $id)
     {
         $member = Member::findOrFail($id);
+
         $member->update($request->all());
         return redirect()->route('members.index');
     }
@@ -81,7 +83,12 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $borrows = \App\Models\Borrow::where('member_id', $id)->get();
+        foreach ($borrows as $borrow) {
+            $borrow->delete();
+        }
+        Member::destroy($id);
+        return redirect()->route('members.index');
     }
 
     public function createMember($data) {

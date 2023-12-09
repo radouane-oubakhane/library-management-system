@@ -4,11 +4,11 @@
         @csrf
         <div>
             <label for="name">First Name</label>
-            <input type="text" name="name" value="{{ $member->first_name }}">
+            <input type="text" name="first_name" value="{{ $member->first_name }}">
         </div>
         <div>
             <label for="name">Last Name</label>
-            <input type="text" name="name" value="{{ $member->last_name }}">
+            <input type="text" name="last_name" value="{{ $member->last_name }}">
         </div>
         <div>
             <label for="email">Email</label>
@@ -24,13 +24,18 @@
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="text" name="password" value="{{ $member->password }}">
+            <label>
+                <input type="text" name="password" value="{{ $member->password }}">
+            </label>
         </div>
         <div>
             <label for="password_confirmation">Confirm Password</label>
-            <input type="text" name="password_confirmation" value="{{ $member->password_confirmation }}">
+            <label>
+                <input type="text" name="password_confirmation" value="{{ $member->password_confirmation }}">
+            </label>
         </div>
         <div>
             <button type="submit">Update</button>
         </div>
+    </form>
 </div>

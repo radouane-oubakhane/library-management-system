@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -59,7 +61,9 @@ class AuthorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit-auteur', [
+            'author' => Author::findOrFail($id)
+        ]);
     }
 
     /**
@@ -67,7 +71,9 @@ class AuthorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $author = Author::findOrFail($id);
+        $author->update($request->all());
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -75,6 +81,11 @@ class AuthorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $books = Book::where('author_id', $id)->get();
+        foreach ($books as $book) {
+            $book->delete();
+        }
+        Author::destroy($id);
+        return redirect()->route('authors.index');
     }
 }
