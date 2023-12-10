@@ -7,6 +7,7 @@ use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProfileController;
 
@@ -128,6 +129,17 @@ Route::prefix("borrows")->group(function () {
     Route::post('/{id}/overdue', [BorrowController::class, 'overdue'])->name('borrows.overdue');
 });
 
+Route::prefix("reservations")->group(function () {
+    Route::get('/', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::get('/create', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/{id}', [ReservationController::class, 'show'])->name('reservations.show');
+    Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+    Route::post('/{id}/edit', [ReservationController::class, 'update'])->name('reservations.update');
+    Route::post('/{id}/delete', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+    Route::post('/{id}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
+    Route::post('/{id}/expire', [ReservationController::class, 'expire'])->name('reservations.expire');
+});
 
 
 Auth::routes();
