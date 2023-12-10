@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Borrow extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.

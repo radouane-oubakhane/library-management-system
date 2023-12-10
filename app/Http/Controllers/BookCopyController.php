@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\BookCopyResponse;
 use App\Models\Book;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BookCopy extends Controller
+class BookCopyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,28 +18,30 @@ class BookCopy extends Controller
 
         $books = Book::all();
 
-        foreach ($books as $book) {
 
-            $borrowedCopies=DB::table('book_copies')
-                ->where('book_id', $book->id)
+        $book_copies = $books->map(function ($book) {
+            $reservation_count = Reservation::where('book_id', $book->id)->count();
+            $borrow_count = DB::table('borrows')
+                ->join('book_copies', 'book_copies.id', '=', 'borrows.book_copy_id')
+                ->where('book_copies.book_id', '=', $book->id)
                 ->count();
-            $borrowedCopiesReserve=DB::table('book_copies')
-                ->where('book_id', $book->id)
-                ->where('status','borrowed')
-                ->count();
-            $reservationsCount = DB::table('reservations')
-                ->where('book_id', $book->id)
-                ->count();
-            // Vous pouvez maintenant utiliser $borrowedCopies et $reservationsCount pour chaque livre
-            // ...
+            $available_count = $book->stock - $reservation_count - $borrow_count;
+            return new BookCopyResponse(
+                $book->id,
+                $book->title,
+                $book->author ? $book->author->first_name : '',
+                $book->author ? $book->author->last_name : '',
+                $book->bookCategory ? $book->bookCategory->name : '',
+                $book->stock,
+                $reservation_count,
+                $borrow_count,
+                $available_count,
+            );
+        });
 
-            // Ou bien, vous pouvez ajouter ces informations au modèle Book lui-même
-            $book->borrowedCopies = $borrowedCopies;
-            $book->reservationsCount = $reservationsCount;
-            $book->borrowedCopiesReserve =$borrowedCopiesReserve;
-        }
-
-        return view('booksReserve', compact('books'));
+        return view('book-copies', [
+            'bookCopies' => $book_copies
+        ]);
     }
 
     /**

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookCopy;
+use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +31,7 @@ Route::get('/books', [BookController::class, 'index'])->name('books.index');
 // Inscriptions
 //Route::get('/inscriptions', [InscriptionController::class, 'index'])->name('inscriptions.index');
 // BookReserve
-Route::get('/bookreserve', [BookCopy::class, 'index'])->name('books reserve.index');
+// Route::get('/bookreserve', [BookCopyController::class, 'index'])->name('books reserve.index');
 // Create Inscription
 //Route::get('/inscriptions/create', [InscriptionController::class, 'create'])->name('inscriptions.create');
 // Store Inscription
@@ -98,6 +98,17 @@ Route::prefix("authors")->group(function () {
     Route::post('/{id}/edit', [AuthorController::class, 'update'])->name('authors.update');
     Route::post('/{id}/delete', [AuthorController::class, 'destroy'])->name('authors.destroy');
 });
+
+Route::prefix("book-copies")->group(function () {
+    Route::get('/', [BookCopyController::class, 'index'])->name('book-copies.index');
+    Route::get('/create', [BookCopyController::class, 'create'])->name('book-copies.create');
+    Route::post('/', [BookCopyController::class, 'store'])->name('book-copies.store');
+    Route::get('/{id}', [BookCopyController::class, 'show'])->name('book-copies.show');
+    Route::get('/{id}/edit', [BookCopyController::class, 'edit'])->name('book-copies.edit');
+    Route::post('/{id}/edit', [BookCopyController::class, 'update'])->name('book-copies.update');
+    Route::post('/{id}/delete', [BookCopyController::class, 'destroy'])->name('book-copies.destroy');
+});
+
 
 
 Auth::routes();
