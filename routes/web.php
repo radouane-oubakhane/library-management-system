@@ -7,6 +7,7 @@ use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,9 @@ Route::prefix('books')->group(function () {
     Route::post('/{id}/delete', [BookController::class, 'destroy'])->name('books.destroy');
 });
 
+Route::prefix('/profile')->group(callback: function (){
+    Route::get('/{id}', [ProfileController::class, 'show'])->name(name: 'profile.show');
+});
 
 Route::prefix('members')->group(callback: function () {
     Route::get('/', [MemberController::class, 'index'])->name('members.index');
