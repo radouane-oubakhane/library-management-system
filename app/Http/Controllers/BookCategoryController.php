@@ -69,6 +69,8 @@ class BookCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = BookCategory::findOrFail($id);
+        $category->delete();
+        return redirect()->route('book-categories.index');
     }
 }

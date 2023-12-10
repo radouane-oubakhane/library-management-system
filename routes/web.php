@@ -51,17 +51,17 @@ Route::prefix('inscriptions')->group(function () {
 
 
 //Auteur
-Route::get('/authors/create', [\App\Http\Controllers\AuthorController::class, 'create'])->name('authors.create');
-Route::get('/authors', [\App\Http\Controllers\AuthorController::class, 'index'])->name('authors.index');
+Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 
-Route::post('/authors/store', [\App\Http\Controllers\AuthorController::class, 'store'])->name('authors.store');
+Route::post('/authors/store', [AuthorController::class, 'store'])->name('authors.store');
 
 Route::prefix('book-categories')->group(function () {
     Route::get('/', [BookCategoryController::class, 'index'])->name('book-categories.index');
     Route::get('/create', [BookCategoryController::class, 'create'])->name('book-categories.create');
     Route::post('/', [BookCategoryController::class, 'store'])->name('book-categories.store');
-    Route::get('/{id}/edit', [\App\Http\Controllers\BookCategoryController::class, 'edit'])->name('book-categories.edit');
-    Route::post('/{id}/edit', [\App\Http\Controllers\BookCategoryController::class, 'update'])->name('book-categories.update');
+    Route::get('/{id}/edit', [BookCategoryController::class, 'edit'])->name('book-categories.edit');
+    Route::post('/{id}/edit', [BookCategoryController::class, 'update'])->name('book-categories.update');
 
 });
 
@@ -71,6 +71,8 @@ Route::prefix('books')->group(function () {
     Route::post('/', [BookController::class, 'store'])->name('books.store');
     Route::get('/{id}', [BookController::class, 'show'])->name('books.show');
     Route::get('/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::post('/{id}/edit', [BookController::class, 'update'])->name('books.update');
+    Route::post('/{id}/delete', [BookController::class, 'destroy'])->name('books.destroy');
 });
 
 
@@ -81,9 +83,21 @@ Route::prefix('members')->group(callback: function () {
     Route::get('/{id}', [MemberController::class, 'show'])->name('members.show');
     Route::get('/{id}/edit', [MemberController::class, 'edit'])->name('members.edit');
     Route::post('/{id}/edit', [MemberController::class, 'update'])->name('members.update');
-    Route::delete('/delete/{id}', [\App\Http\Controllers\MemberController::class, 'destroy'])->name('members.destroy');
+    Route::delete('/delete/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
 
 });
+
+
+Route::prefix("authors")->group(function () {
+    Route::get('/', [AuthorController::class, 'index'])->name('authors.index');
+    Route::get('/create', [AuthorController::class, 'create'])->name('authors.create');
+    Route::post('/', [AuthorController::class, 'store'])->name('authors.store');
+    Route::get('/{id}', [AuthorController::class, 'show'])->name('authors.show');
+    Route::get('/{id}/edit', [AuthorController::class, 'edit'])->name('authors.edit');
+    Route::post('/{id}/edit', [AuthorController::class, 'update'])->name('authors.update');
+    Route::post('/{id}/delete', [AuthorController::class, 'destroy'])->name('authors.destroy');
+});
+
 
 Auth::routes();
 

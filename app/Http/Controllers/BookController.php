@@ -82,7 +82,11 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit-book', [
+            'book' => Book::findOrFail($id),
+            'authors' => Author::all(),
+            'bookCategories' => BookCategory::all(),
+        ]);
     }
 
     /**
@@ -90,7 +94,9 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $book->update($request->all());
+        return redirect()->route('books.index');
     }
 
     /**
@@ -98,6 +104,20 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $borrows = $book->borrows;
+        $borrows->each(function ($borrow) {
+            $borrow->update(['book_id' => null, 'book_copy_id' => null]);
+        });
+        $book->bookCopies()->delete();
+
+
+        $book->bookCopies()->delete();
+        $book->reservations()->delete();
+
+
+
+        $book->delete();
+        return redirect()->route('books.index');
     }
 }
