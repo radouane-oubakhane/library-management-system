@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
+use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
@@ -111,6 +112,20 @@ Route::prefix("book-copies")->group(function () {
     Route::get('/{id}/edit', [BookCopyController::class, 'edit'])->name('book-copies.edit');
     Route::post('/{id}/edit', [BookCopyController::class, 'update'])->name('book-copies.update');
     Route::post('/{id}/delete', [BookCopyController::class, 'destroy'])->name('book-copies.destroy');
+});
+
+Route::prefix("borrows")->group(function () {
+    Route::get('/', [BorrowController::class, 'index'])->name('borrows.index');
+    Route::get('/create', [BorrowController::class, 'create'])->name('borrows.create');
+    Route::post('/', [BorrowController::class, 'store'])->name('borrows.store');
+    Route::get('/{id}', [BorrowController::class, 'show'])->name('borrows.show');
+    Route::get('/{id}/edit', [BorrowController::class, 'edit'])->name('borrows.edit');
+    Route::post('/{id}/edit', [BorrowController::class, 'update'])->name('borrows.update');
+    Route::post('/{id}/delete', [BorrowController::class, 'destroy'])->name('borrows.destroy');
+
+
+    Route::post('/{id}/return', [BorrowController::class, 'return'])->name('borrows.return');
+    Route::post('/{id}/overdue', [BorrowController::class, 'overdue'])->name('borrows.overdue');
 });
 
 
