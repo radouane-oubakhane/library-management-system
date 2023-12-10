@@ -8,19 +8,10 @@
 
             @if (Auth::check())
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('books.index') }}">Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('authors.index') }}">Authors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
                 </li>
             @else
                 <li class="nav-item">

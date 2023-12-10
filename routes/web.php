@@ -26,8 +26,8 @@ Route::get('/', function () {
 // Books
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 // Members
-Route::get('/members', [MemberController::class, 'index'])->name('members.index');
-Route::get('/member/{id}', [MemberController::class, 'show'])->name('members.index');
+//Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+//Route::get('/member/{id}', [MemberController::class, 'show'])->name('members.index');
 // Inscriptions
 //Route::get('/inscriptions', [InscriptionController::class, 'index'])->name('inscriptions.index');
 // BookReserve
@@ -62,6 +62,7 @@ Route::prefix('book-categories')->group(function () {
     Route::post('/', [BookCategoryController::class, 'store'])->name('book-categories.store');
     Route::get('/{id}/edit', [BookCategoryController::class, 'edit'])->name('book-categories.edit');
     Route::post('/{id}/edit', [BookCategoryController::class, 'update'])->name('book-categories.update');
+    Route::post('/{id}/delete', [BookCategoryController::class, 'destroy'])->name('book-categories.destroy');
 
 });
 
