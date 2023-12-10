@@ -44,8 +44,12 @@
                 <td>{{ $auteur->phone }}</td>
 
                 <td>{{ $auteur->date_of_birth }}</td>
-               <td><a href="{{ route('authors.edit', $auteur->id) }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                   </td>
+                <td>
+                    <a href="{{ route('authors.edit', $auteur->id) }}" class="btn btn-primary">Edit</a>
+                    <form action="{{ route('authors.destroy', $auteur->id) }}" method="post">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
             </tr>
         @endforeach
         </tbody>
