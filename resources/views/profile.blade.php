@@ -48,9 +48,10 @@
 </div>
 <a class="btn btn-primary" href="/members/{{$m->id}}/edit">Edit</a>
 <hr>
-
-
+<a class="btn btn-primary" href="/reservations/show/{{$m->id}}">list de reservations</a>
+<hr>
     <h3> les livres emprunter</h3>
+
 
     <hr>
     <table class="table table-striped">

@@ -128,12 +128,16 @@ Route::prefix("borrows")->group(function () {
 
 Route::prefix("reservations")->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('reservations.index');
-    Route::get('/create', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/create/{id_book}/{id_member}', [ReservationController::class, 'create'])->name('reservations.create');
     Route::post('/', [ReservationController::class, 'store'])->name('reservations.store');
-    Route::get('/{id}', [ReservationController::class, 'show'])->name('reservations.show');
+    Route::get('/show/{id}', [ReservationController::class, 'show'])->name('reservations.show');
     Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
     Route::post('/{id}/edit', [ReservationController::class, 'update'])->name('reservations.update');
     Route::post('/{id}/delete', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+    Route::get('reservableBooks', [ReservationController::class, 'showReservableBooks'])->name('reservations.reservableBooks');
+  
+    Route::post('/members/{id}/delete', [ReservationController::class, 'destroyByMember'])->name('reservations.member.destroy');
+
     Route::post('/{id}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
     Route::post('/{id}/expire', [ReservationController::class, 'expire'])->name('reservations.expire');
 });
