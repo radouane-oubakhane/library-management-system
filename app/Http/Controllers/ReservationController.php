@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DTO\ReservationResponse;
+use App\Models\BookCopy;
+use App\Models\Borrow;
 use App\Models\Member;
 use App\Models\Reservation;
 use App\Models\Book;
@@ -27,7 +29,7 @@ class ReservationController extends Controller
                 $reservation->member->last_name,
                 $reservation->reserved_at,
                 $reservation->canceled_at ?? '',
-                $reservation->expired_at,
+                $reservation->expired_at??''
             );
         });
 
@@ -100,9 +102,8 @@ class ReservationController extends Controller
                 $reservation->book->isbn,
                 $reservation->member->first_name,
                 $reservation->member->last_name,
-                $reservation->reserved_at,
-                $reservation->canceled_at ?? '',
-                $reservation->expired_at,
+                $reservation->reserved_at
+
             );
         });
 
@@ -148,5 +149,52 @@ class ReservationController extends Controller
         $reservation->delete();
         //get id_member from session
         return redirect()->route('reservations.show',2);
+    }
+
+
+
+    public function acceptReservation($reservationId)
+    {
+        // Récupérer la réservation
+        $reservation = Reservation::findOrFail($reservationId);
+
+        // Vérifier si la réservation est toujours en attente d'acceptation
+        
+
+        // Créer une ligne dans la table Borrow
+        $borrow = Borrow::create([
+            'book_id' => $reservation->book_id,
+            'book_copy_id' => $this->findAvailableCopy($reservation->book_id),
+            'member_id' => $reservation->member_id,
+            'borrow_date' => now(),
+            'return_date' => null, // La date de retour sera mise à jour lorsque le livre sera retourné
+            'status' => 'borrowed', // Vous pouvez utiliser un état ou un autre champ selon vos besoins
+        ]);
+
+        // Marquer la réservation comme acceptée en mettant à jour les champs appropriés
+
+        $reservation->delete();
+        return redirect()->route('reservations.index')->with('success', 'La réservation a été acceptée avec succès.');
+    }
+
+    // ...
+
+    // Fonction pour trouver une copie de livre disponible
+    private function findAvailableCopy($bookId)
+    {
+        $availableCopy = BookCopy::where('book_id', $bookId)
+            ->whereDoesntHave('borrows', function ($query) {
+                $query->where('status', 'emprunté');
+            })
+            ->first();
+
+        if ($availableCopy) {
+            return $availableCopy->id;
+        }
+
+        // Gérer le cas où aucune copie disponible n'est trouvée (peut-être générer une exception ou un message d'erreur)
+        // ...
+
+        return null;
     }
 }

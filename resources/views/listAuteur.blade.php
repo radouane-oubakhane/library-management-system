@@ -24,6 +24,7 @@
 @include('nav-bar')
 <div>
     <h1>Authors</h1>
+    <a class="btn btn-primary" href="{{route('authors.create')}}">Ajouter</a>
     <table class="table ">
         <thead>
         <tr>

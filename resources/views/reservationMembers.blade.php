@@ -31,8 +31,7 @@
                 <th>ISBN du livre</th>
 
                 <th>Réservé le</th>
-                <th>Annulé le</th>
-                <th>Expire le</th>
+
                 <th>Actions</th>
             </tr>
         </thead>
@@ -44,8 +43,7 @@
                     <td>{{ $reservation->book_isbn }}</td>
 
                     <td>{{ $reservation->reserved_at }}</td>
-                    <td>{{ $reservation->canceled_at }}</td>
-                    <td>{{ $reservation->expired_at }}</td>
+
                     <td>
 
                         <form action="{{ route('reservations.member.destroy', $reservation->id) }}" method="post">

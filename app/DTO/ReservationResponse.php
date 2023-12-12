@@ -10,9 +10,7 @@ class ReservationResponse
         public string $book_isbn,
         public string $member_first_name,
         public string $member_last_name,
-        public string $reserved_at,
-        public string $canceled_at,
-        public string $expired_at,
+        public string $reserved_at
     ) {
     }
 }

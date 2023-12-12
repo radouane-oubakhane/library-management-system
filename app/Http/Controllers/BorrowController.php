@@ -24,7 +24,7 @@ class BorrowController extends Controller
                 $borrow->member->first_name,
                 $borrow->member->last_name,
                 $borrow->borrow_date,
-                $borrow->return_date,
+                $borrow->return_date??'',
                 $borrow->status,
             );
         });

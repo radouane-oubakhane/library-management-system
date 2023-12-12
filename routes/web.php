@@ -134,15 +134,16 @@ Route::prefix("reservations")->group(function () {
     Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
     Route::post('/{id}/edit', [ReservationController::class, 'update'])->name('reservations.update');
     Route::post('/{id}/delete', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+    Route::post('/{id}/accept', [ReservationController::class, 'acceptReservation'])->name('reservations.accept');
     Route::get('reservableBooks', [ReservationController::class, 'showReservableBooks'])->name('reservations.reservableBooks');
-  
+
     Route::post('/members/{id}/delete', [ReservationController::class, 'destroyByMember'])->name('reservations.member.destroy');
 
     Route::post('/{id}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
     Route::post('/{id}/expire', [ReservationController::class, 'expire'])->name('reservations.expire');
 });
 
+Route::get('/dashboardAdmin',  function () {return view('dashboardAdmin');})->name('dashboard');
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
